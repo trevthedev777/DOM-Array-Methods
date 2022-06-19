@@ -1,5 +1,5 @@
 const main = document.getElementById("main");
-const addUserBtn = document.getElementById("user");
+const addUserBtn = document.getElementById("add-user");
 const doubleBtn = document.getElementById("double");
 const showMillionairesBtn = document.getElementById("show-millionaires");
 const sortBtn = document.getElementById("sort");
@@ -9,9 +9,7 @@ const calculateWealthBtn = document.getElementById("calculate-wealth");
 // Initialise Array
 let data = [];
 
-getRandomUser();
-getRandomUser();
-getRandomUser();
+
 // Fetch random user and add money using async await
 async function getRandomUser() {
     const res = await fetch("https://www.randomuser.me/api")
@@ -30,4 +28,29 @@ async function getRandomUser() {
 // Add new object to data array
 function addData(object) {
     data.push(object);
+
+    updateDOM();
 }
+
+// Update DOM
+function updateDOM(providedData = data) {
+    // Clear Main Div
+    main.innerHTML = "<h2><strong>Person</strong>Wealth</h2>";
+
+    // Arrow functions dont need () for only one param
+    providedData.forEach(person => {
+        const element = document.createElement("div");
+        element.classList.add("person");
+        element.innerHTML = `<strong>${person.name}</strong> ${formatMoney(person.money)}`;
+        main.appendChild(element);
+    });
+};
+
+// Format Number as money 
+// https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
+function formatMoney(number) {
+    return "£" + " " + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};
+
+// Event Lisneters
+addUserBtn.addEventListener("click", getRandomUser);
