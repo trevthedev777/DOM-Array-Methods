@@ -25,6 +25,15 @@ async function getRandomUser() {
     addData(newUser)
 };
 
+// Double Money 
+function doubleMoney() {
+    data = data.map((person) => {
+        return {...person, money: person.money * 2}
+    });
+
+    updateDOM();
+}
+
 // Add new object to data array
 function addData(object) {
     data.push(object);
@@ -46,6 +55,7 @@ function updateDOM(providedData = data) {
     });
 };
 
+
 // Format Number as money 
 // https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
 function formatMoney(number) {
@@ -54,3 +64,4 @@ function formatMoney(number) {
 
 // Event Lisneters
 addUserBtn.addEventListener("click", getRandomUser);
+doubleBtn.addEventListener("click", doubleMoney);
