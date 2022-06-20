@@ -1,3 +1,4 @@
+// Global Variables
 const main = document.getElementById("main");
 const addUserBtn = document.getElementById("add-user");
 const doubleBtn = document.getElementById("double");
